@@ -1,0 +1,156 @@
+<?php
+session_start();
+include("include.php");
+?>
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สินค้า</title>
+    <link href="assets/logo/Prime2.png" rel="icon">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- script ---->
+    <style>
+        /* Filter and Sort */
+        .filter-sort {
+            margin: 20px;
+            text-align: center;
+        }
+
+        #sort-options {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a href="#">ค้นหาร้าน</a>
+        <a href="#">ความช่วยเหลือ</a>
+        <a href="#">เข้าร่วมกับเรา</a>
+        <?php
+        // Check if the user is logged in
+        if (isset($_SESSION['email'])) {
+            // User is logged in, show their name and logout link
+            $email = $_SESSION['email'];
+            $query = mysqli_query($conn, "SELECT firstName, lastName FROM users WHERE email='$email'");
+            $row = mysqli_fetch_assoc($query);
+            echo '<span>Welcome, ' . $row['firstName'] . ' ' . $row['lastName'] . '</span>';
+            echo '<span class="separator" style="margin: 0 8px; color: #666; font-weight: normal;">|</span>';
+            echo '<a href="logout.php " class="logout-btn">ออกจากระบบ</a>';
+            echo '<a href="profile.php" class="cart-icon">
+                    <i class="fa fa-user"></i>
+                </a>';
+        } else {
+            // User is not logged in, show sign-in link
+            echo '<a href="login.php" class="signin-btn">Sign In</a>';
+        }
+        ?>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="main.php" class="logo">
+                <img src="assets/logo/Prime2.png" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.php">หน้าแรก</a></li>
+                <li><a href="product.php">สินค้า</a></li>
+                <li><a href="#">ผู้ชาย</a></li>
+                <li><a href="#">ผู้หญิง</a></li>
+                <li><a href="addproduct.php">เพิ่มสินค้า</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <button id="search-button"><i class="fa fa-search"></i></button>
+            <input type="text" placeholder="ค้นหา" id="search-input">
+
+        </div>
+
+    </header>
+    <?php
+    include("include.php");
+    $filter = isset($_GET['filter']) ? $_GET['filter'] : ''; // รับตัวกรอง
+    $strSQL = "SELECT * FROM files";
+    if ($filter) {
+        $strSQL .= " WHERE Name LIKE '%$filter%'"; // ตัวกรองด้วยชื่อสินค้า
+    }
+    $objQuery = mysqli_query($conn, $strSQL) or die("Error Query [" . $strSQL . "]");
+    ?>
+
+    <!-- ฟอร์มตัวกรอง -->
+    <!-- Filter and Sort Section -->
+    <div class="filter-sort">
+        <select id="sort-options">
+            <option value="price-asc">ราคาต่ำไปสูง</option>
+            <option value="price-desc">ราคาสูงไปต่ำ</option>
+            <option value="name-asc">ชื่อ A-Z</option>
+            <option value="name-desc">ชื่อ Z-A</option>
+        </select>
+    </div>
+
+    <!-- ตารางสินค้ารูปแบบกริด -->
+    <div class="product-list">
+        <?php
+        while ($objResult = mysqli_fetch_array($objQuery)) {
+            //var_dump($objResult); // เช็กว่ามีค่าถูกต้องไหม
+        ?>
+            <div class="product-card">
+                <a href="product-detail.php?id=<?= $objResult['FilesID']; ?>">
+                    <img src="myfile/<?= $objResult["FilesName"]; ?>" alt="<?= htmlspecialchars($objResult["Name"]); ?>" class="product-image">
+                    <h3><?= htmlspecialchars($objResult["Name"]); ?></h3>
+                    <p>฿<?= htmlspecialchars($objResult["Price"]); ?></p>
+                </a>
+            </div>
+        <?php } ?>
+    </div>
+
+
+    <?php // mysqli_close($conn); 
+    ?>
+    <script src="script.js"></script>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>เกี่ยวกับเรา</h4>
+                <p>Lorem ipsum dolor sit amet,</p>
+            </div>
+            <div class="footer-column">
+                <h4>บริการลูกค้า</h4>
+                <ul>
+                    <li><a href="#">คำถามที่พบบ่อย</a></li>
+                    <li><a href="#">การคืนสินค้า</a></li>
+                    <li><a href="#">การจัดส่ง</a></li>
+                    <li><a href="#">ติดต่อเรา</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>ติดตามเรา</h4>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-x"></i></a> <!-- สำหรับ X (Formerly Twitter) -->
+                    <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Lorem Store. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
