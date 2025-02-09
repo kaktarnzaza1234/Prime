@@ -35,6 +35,9 @@
       </div>
       <input type="submit" class="btn" value="สมัครสมาชิก" name="signUp">
     </form>
+
+    <div class="validate"></div>
+
     <p class="or">
     </p>
     <div class="links">
@@ -43,25 +46,34 @@
     </div>
   </div>
 
-  <div class="container" id="signIn">
+  <?php session_start(); ?>
+<div class="container" id="signIn">
     <h1 class="form-title">ลงชื่อเข้าใช้</h1>
+
+    <!-- Show error message if login fails -->
+    <?php if (isset($_SESSION['error'])): ?>
+        <p style="color: red; margin-left:2rem; margin-bottom: 1rem;"><?php echo $_SESSION['error']; ?></p>
+        <?php unset($_SESSION['error']); // Clear error after showing ?>
+    <?php endif; ?>
+
     <form method="post" action="register.php">
-      <div class="input-group">
-        <input type="email" name="email" id="email" placeholder="Email" required>
-        <label for="email">อีเมล</label>
-      </div>
-      <div class="input-group">
-        <input type="password" name="password" id="password" placeholder="Password" required>
-        <label for="password">พาสเวิร์ด</label>
-      </div>
-      <input type="submit" class="btn" value="เข้าสู่ระบบ" name="signIn">
+        <div class="input-group">
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <label for="email">อีเมล</label>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <label for="password">พาสเวิร์ด</label>
+        </div>
+        <input type="submit" class="btn" value="เข้าสู่ระบบ" name="signIn">
     </form>
 
     <div class="links">
-      <p>ยังไม่มีบัญชีใช่ไหม?</p>
-      <button id="signUpButton">สมัครสมาชิก</button>
+        <p>ยังไม่มีบัญชีใช่ไหม?</p>
+        <button id="signUpButton">สมัครสมาชิก</button>
     </div>
-  </div>
+</div>
+
   <script src="login.js"></script>
 </body>
 

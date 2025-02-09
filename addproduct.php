@@ -81,15 +81,15 @@ include("include.php");
             $email = $_SESSION['email'];
             $query = mysqli_query($conn, "SELECT firstName, lastName FROM users WHERE email='$email'");
             $row = mysqli_fetch_assoc($query);
-            echo '<span>Welcome, ' . $row['firstName'] . ' ' . $row['lastName'] . '</span>';
+            echo '<span>สวัสดี คุณ ' . $row['firstName'] . '</span>';
             echo '<span class="separator" style="margin: 0 8px; color: #666; font-weight: normal;">|</span>';
-            echo '<a href="logout.php " class="logout-btn">ออกจากระบบ</a>';
+            echo '<a href="logout.php " class="logout-btn">ล็อกเอาท์</a>';
             echo '<a href="profile.php" class="cart-icon">
                     <i class="fa fa-user"></i>
                 </a>';
         } else {
             // User is not logged in, show sign-in link
-            echo '<a href="login.php" class="signin-btn">Sign In</a>';
+            echo '<a href="login.php" class="signin-btn">เข้าสู่ระบบ</a>';
         }
         ?>
     </div>

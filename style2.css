@@ -150,7 +150,7 @@ header nav ul li a:hover {
     display: block;
     margin: 10px auto;
 }
-.btn {
+#mainbutton {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
@@ -163,7 +163,7 @@ header nav ul li a:hover {
     text-align: center;
 }
 
-.btn:hover {
+#mainbutton:hover {
     background-color: #333; /* เปลี่ยนสีเมื่อโฮเวอร์ */
 }
 
@@ -306,3 +306,54 @@ footer {
     margin-top: 10px;
 }
 
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    color: inherit; /* ป้องกันการเปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    
+}
+
+.product-card p {
+    margin-bottom: 15px;
+    color: #555;
+}
+.product-card a {
+    text-decoration: none; /* เอาเส้นใต้ลิงก์ออก */
+    color: inherit; /* ใช้สีเดียวกับข้อความปกติ */
+    display: block; /* ทำให้ทั้งการ์ดคลิกได้ */
+}
+
+.product-card a:hover {
+    color: inherit; /* ป้องกันการเปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
+}

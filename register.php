@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'include.php';
 
 if (isset($_POST['signUp'])) {
@@ -39,6 +39,9 @@ if (isset($_POST['signIn'])) {
         header("Location: main.php");
         exit();
     } else {
-        echo "Not Found, Incorrect Email or Password";
+        // ❌ Login failed: Redirect back with error message
+        $_SESSION['error'] = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+        header("Location: login.php");
+        exit();
     }
 }

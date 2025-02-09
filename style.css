@@ -427,7 +427,7 @@ ul li {
         text-decoration: underline;
     }
 
-    .btn {
+    #button {
         font-size: 1.1rem;
         padding: 8px 0;
         border-radius: 5px;
@@ -440,8 +440,8 @@ ul li {
         transition: 0.9s;
     }
 
-    .btn:hover {
-        background: #07001f;
+    #button:hover {
+        background: #5436b8;
     }
 
     .or {
